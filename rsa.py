@@ -64,7 +64,7 @@ def generate_keypair():
     while egcd(e, l)[0] != 1:
         e = srng(2, l)
     d = egcd(e, l)[1] % l
-    return ((e << 2049) + n, (d << 2049) + n) #Pack e and n into a single integer. Same for d and n
+    return (e << 2049) + n, (d << 2049) + n #Pack e and n into a single integer. Same for d and n
 
 def cipher(m, k): #Essentially a relabelled mod_pow function. Used both to encrypt and decrypt integers
     e = k >> 2049 #Unpack e and n from k
@@ -83,7 +83,7 @@ def decrypt(c, k): #Decrypts and removes the padding to get the original message
 p, s = generate_keypair()
 print(f'PUBLIC:\n{p}\n\nPRIVATE:\n{s}\n')
 
-m = 694201337
+m = 1337
 
 print(f'MESSAGE: {m}\n')
 c = encrypt(m, p)
